@@ -12,7 +12,7 @@ classdef fft_ifft
                 end
                 Y = fft_ifft.fft_recursive(y);
                 for k = 1:M
-                    result(k) = result(k)+Y(k)*exp(-1i*2*pi*(k-1)*(l)/N);
+                    result(k) = result(k)+Y(k)*exp(-1i*2*pi*(k-1)%*(l)/N);
                 end
             end
         end

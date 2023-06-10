@@ -39,18 +39,48 @@ end
 y = x + z;
 %sound(y, Fs);
 %i can hear only the noise and none of the original signal
+figure;
+plot(1:N,y);
 
-%plot(1:N,y);
-Y = my_fft(y);
-omega = -128/pi*(N-1)/2:128/pi:128/pi*(N-1)/2;
-plot(omega,Y);
+fs = 1/128;
+Y = fft(y);
+frequencies = fs*(-128:127);
+freqRange = [-1,1];
+startIndex = find(frequencies >= freqRange(1), 1);
+endIndex = find(frequencies <= freqRange(2), 1, 'last');
+
+dtftRange = Y(startIndex:endIndex);
+
+figure;
+% Plotting the magnitude spectrum
+plot(frequencies(startIndex:endIndex), abs(dtftRange));
+title('DTFT of Signal in Frequency Range');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
 
 y2 = y(1:2:N);
 z2 = z(1:2:N);
-Z2 = my_fft(z2);
-Y2 = my_fft(y2);
+Z2 = fft(z2);
+Y2 = fft(y2);
 sound(y2, Fs/2);
 
+dtftRange = Z2(startIndex:endIndex);
+
+figure;
+% Plotting the magnitude spectrum
+plot(frequencies(startIndex:endIndex), abs(dtftRange));
+title('DTFT of Signal in Frequency Range');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+
+dtftRange = Y2(startIndex:endIndex);
+
+figure;
+% Plotting the magnitude spectrum
+plot(frequencies(startIndex:endIndex), abs(dtftRange));
+title('DTFT of Signal in Frequency Range');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
 %   culculate the avg power of a signal
 function P = culcAvgPower(x,n)
     sum = 0;

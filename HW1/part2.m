@@ -27,9 +27,9 @@ Px = culcAvgPower(x, N);
 w1 = 1.6 + 0.1*d1;
 w2 = 1.6 + 0.1*d;
 w3 = 3;
-a1 = sqrt(Px);
-a2 = sqrt(Px);
-a3 = sqrt(Px);
+a1 = 50*sqrt(Px);
+a2 = 50*sqrt(Px);
+a3 = 50*sqrt(Px);
 z = zeros(N,1);
 for i = 1:N
     z(i) = a1*cos(w1*i) + a2*cos(w2*i) + a3*cos(w3*i);
@@ -42,45 +42,47 @@ y = x + z;
 figure;
 plot(1:N,y);
 
-fs = 1/128;
-Y = fft(y);
-frequencies = fs*(-128:127);
-freqRange = [-1,1];
-startIndex = find(frequencies >= freqRange(1), 1);
-endIndex = find(frequencies <= freqRange(2), 1, 'last');
-
-dtftRange = Y(startIndex:endIndex);
+% fs = 1/128;
+% Y = fft(y);
+% frequencies = fs*(-128:127);
+% freqRange = [-1,1];
+% startIndex = find(frequencies >= freqRange(1), 1);
+% endIndex = find(frequencies <= freqRange(2), 1, 'last');
+% 
+% dtftRange = Y(startIndex:endIndex);
+% 
+% figure;
+% % Plotting the magnitude spectrum
+% plot(frequencies(startIndex:endIndex), abs(dtftRange));
+% title('DTFT of y in Frequency Range');
+% xlabel('Frequency (Hz)');
+% ylabel('Magnitude');
+freq = linspace(-2*pi, 2*pi, 257);
 
 figure;
-% Plotting the magnitude spectrum
-plot(frequencies(startIndex:endIndex), abs(dtftRange));
-title('DTFT of Signal in Frequency Range');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
+Y = fft(y, 257);
+plot(freq, abs(Y));
+title('Y');
+
+figure;
+Z = fft(z, 257);
+plot(freq, abs(Z));
+title('Z');
 
 y2 = y(1:2:N);
 z2 = z(1:2:N);
-Z2 = fft(z2);
-Y2 = fft(y2);
 sound(y2, Fs/2);
 
-dtftRange = Z2(startIndex:endIndex);
+figure;
+Z2 = fft(z2, 257);
+plot(freq, abs(Z2));
+title('Z2');
 
 figure;
-% Plotting the magnitude spectrum
-plot(frequencies(startIndex:endIndex), abs(dtftRange));
-title('DTFT of Signal in Frequency Range');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
+Y2 = fft(y2, 257);
+plot(freq, abs(Y2));
+title('Y2');
 
-dtftRange = Y2(startIndex:endIndex);
-
-figure;
-% Plotting the magnitude spectrum
-plot(frequencies(startIndex:endIndex), abs(dtftRange));
-title('DTFT of Signal in Frequency Range');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
 %   culculate the avg power of a signal
 function P = culcAvgPower(x,n)
     sum = 0;

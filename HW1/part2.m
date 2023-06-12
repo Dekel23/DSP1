@@ -18,7 +18,7 @@ audiowrite(file, y, Fs);
 %% 
 %   load the recorded data from the file
 y = audioread(file);
-%sound(y, Fs); % play the full recored
+sound(y, Fs); % play the full recored
 N = 2^16;
 x = y(1:N);
 %sound(x, Fs); % play the cutted recored
@@ -39,24 +39,24 @@ end
 
 %   the new signal with original and noise
 y = x + z;
-%sound(y, Fs);
+sound(y, Fs);
 %i can hear only the noise and none of the original signal
 
 figure;
 plot(1:N,y);
 %% 
-N = 128;
-freq = linspace(-pi, pi, N);
+N2 = 128;
+freq = linspace(-pi, pi, N2);
 
 %plot Y
 figure;
-Y = fft(y, N);
+Y = fft(y, N2);
 plot(freq, abs(Y));
 title('Y');
 
 %plot Z
 figure;
-Z = fft(z, N);
+Z = fft(z, N2);
 plot(freq, abs(Z));
 title('Z');
 %% 
@@ -68,13 +68,13 @@ sound(y2, Fs/2);
 
 %plot Z2
 figure;
-Z2 = fft(z2, N);
+Z2 = fft(z2, N2);
 plot(freq, abs(Z2));
 title('Z2');
 
 % plot Y2
 figure;
-Y2 = fft(y2, N);
+Y2 = fft(y2, N2);
 plot(freq, abs(Y2));
 title('Y2');
 %% 

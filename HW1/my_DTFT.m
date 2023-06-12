@@ -6,29 +6,6 @@
 %n -> number of current sampling
 %Nw -> number of samples
 
-
-% x = zeros(32,64);
-% x(1:8,1:8) = 1;
-% 
-% X = my_DFT2(x);
-% RE_X = real(X);
-% 
-% function [X] = my_DFT2(x)
-%    N = height(x);
-%    M = width(x);
-%    X = zeros(N,M);
-%    for k1 = 1:N
-%        for k2 = 1:M
-%            for n = 1:N
-%                for m = 1:M
-%                    X(k1,k2) = X(k1,k2) + x(n,m)*exp(-1j*((2*pi*n*k1/N)+(2*pi*m*k2/M)));
-%                end
-%            end
-%        end
-%    end
-% end
-
-
 function [X, omega] = my_DTFT(x, n)
 
 % define the range of omega between -pi,pi with Nw samples
